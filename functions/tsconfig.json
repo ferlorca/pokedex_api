@@ -11,7 +11,7 @@
   "allowJs": true,
   "compileOnSave": true,
   "include": [
-    "/src",
+    "src",
     "**/*.ts", 
     "**/*.js"
   ]

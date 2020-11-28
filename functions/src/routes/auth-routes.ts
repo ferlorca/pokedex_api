@@ -19,5 +19,4 @@ export default function routesConfig(app: Application) {
       role  
       ]
    );
-);
 }

@@ -3,7 +3,7 @@ import { handleError } from "./../error/handle-error";
 import axios from "axios";
 import config from "./../../config";
 import {grantRole} from "./authenticated";
-import Role from "./../../models/User";
+import Role from "./../../models/Enums/Role";
 
 export async function signup(req: Request, res: Response) {
     try {

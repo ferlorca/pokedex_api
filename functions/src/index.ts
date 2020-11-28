@@ -8,7 +8,7 @@ import { routesConfig } from './routes/routes-config';
 import config from "./config";
 
 admin.initializeApp({
-  credential: admin.credential.cert(config.serviceAccount),
+  credential: admin.credential.cert(JSON.stringify(config.serviceAccount)),
   databaseURL: "https://pokedex-79f41.firebaseio.com"
 });
 
