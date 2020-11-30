@@ -2,6 +2,9 @@
 **/*.js
 **/*.js.map
 
+#.vscode 
+.vscode
+
 # Except the ESLint config file
 !.eslintrc.js
 
@@ -12,4 +15,4 @@ typings/
 node_modules/
 
 # Key Firebase
-src/pokedex.ts
+pokedex.json

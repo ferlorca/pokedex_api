@@ -4,12 +4,11 @@ import * as express from 'express';
 import * as cors from 'cors';
 import * as bodyParser from 'body-parser';
 import { routesConfig } from './routes/routes-config';
-
 import config from "./config";
 
 admin.initializeApp({
-  credential: admin.credential.cert(JSON.stringify(config.serviceAccount)),
-  databaseURL: "https://pokedex-79f41.firebaseio.com"
+  credential: admin.credential.cert(config.serviceAccount),
+  databaseURL: "https://pokedex-79f41.firebaseio.com",
 });
 
 const app = express();

@@ -12,9 +12,12 @@ export default async function signin(req: Request, res: Response) {
         if (!req.body.password)
             return res.status(400).send({ message: 'Bad request you need to complete all the parameters.' });
 
+
+        req.body["returnSecureToken"] =true;
+        
         const { data } = await axios.post(config.URL_LOGIN, req.body);
         const decodedUser: admin.auth.DecodedIdToken = await admin.auth().verifyIdToken(data.idToken);
-        return res.status(200).send({ expiresIn: data.expiresIn, token: data.idToken, userId: data.localId , role: decodedUser.role });
+        return res.status(200).send({ expiresIn: data.expiresIn, token: data.idToken, email: decodedUser.email,role: decodedUser.role });
     } catch (err) {
         return handleError(res, err);
     }

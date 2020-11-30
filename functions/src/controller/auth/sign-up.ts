@@ -14,8 +14,7 @@ export async function signup(req: Request, res: Response) {
         const { data } = await axios.post(config.URL_SING_UP, req.body);
         await grantRole(req.body.email,Role.USER);
 
-        const expirationDate = new Date(new Date().getTime() + data.expiresIn * 1000);
-        return res.status(200).send({ expirationDate, token: data.idToken, userId: data.localId , role: Role.USER });
+        return res.status(200).send({ expiresIn: data.expiresIn, token: data.idToken, role:[Role.USER] ,email:req.body.email});
     } catch (err) {
         return handleError(res, err);
     }

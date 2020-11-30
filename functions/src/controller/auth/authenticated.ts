@@ -36,8 +36,7 @@ export async function grantRole(email: string , roleParams: string): Promise<voi
         if (user.customClaims && (user.customClaims as any).role && (user.customClaims as any).role === roleParams) {
             return;
         }        
-        let role:any = {};
-        role[roleParams]=true;
+        let role:any = [roleParams];
         return admin.auth().setCustomUserClaims(user.uid, {role})
     } catch (e) {
         return e;
