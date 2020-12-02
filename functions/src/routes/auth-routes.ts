@@ -15,8 +15,8 @@ export default function routesConfig(app: Application) {
       signup
    );
    app.post('/logout',
-      isAuthenticated,
-      logout
+      [isAuthenticated,
+      logout]
    );
    app.get('/role',
       [
