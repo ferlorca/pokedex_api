@@ -2,7 +2,7 @@ export class Filter {
     page:number;
     amountPerPage:number;
     type?: Array<string>;
-
+    name?: Name;
     attack?: Between;
     defense?: Between;
     hp?: Between;
@@ -13,6 +13,7 @@ export class Filter {
     public constructor(page:number,
         amountPerPage:number,
         type?: Array<string>,
+        name?:Name,
         attack?: Between,
         defense?: Between,
         hp?: Between,
@@ -22,6 +23,7 @@ export class Filter {
         this.page = page;
         this.amountPerPage = amountPerPage;
         this.type = type;
+        this.name  = name;
         this.attack = attack;
         this.defense = defense;
         this.hp = hp;
@@ -34,6 +36,7 @@ export class Filter {
         const page = data.page ? data.page - 1 :  0;
         const amountPerPage = data.amountPerPage ?? 100;
         const type = data.type && data.type.length>0 ?data.type : undefined;
+        const name =data.name ? new Name(data.name.text, data.name.language)  :undefined;
         const attack = Filter.isCorrectValue(data.attack) ? new Between(data.attack.min, data.attack.max) : undefined;
         const defense = Filter.isCorrectValue(data.defense) ? new Between(data.defense.min, data.defense.max): undefined;
         const hp = Filter.isCorrectValue(data.hp) ? new Between(data.hp.min, data.hp.max): undefined;
@@ -45,6 +48,7 @@ export class Filter {
             page,
             amountPerPage,
             type,
+            name,
             attack,
             defense,
             hp,
@@ -71,5 +75,14 @@ export class Between {
     public constructor(min: number, max: number) {
         this.min = min;
         this.max = max;
+    }
+}
+
+export class Name {
+    text: string;
+    language: string;
+    public constructor(text: string, language: string) {
+        this.text = text;
+        this.language = language;
     }
 }

@@ -9,8 +9,6 @@ import { Type } from "../../models/Type";
 const COLLECTION_POKEMON="pokemons";
 const COLLECTION_TYPES="types";
 
-// const COLLECTION_BASE="base";
-
 export async function all(req: Request, res: Response) {
 	try {        
         const filter = Filter.fromData(req.body.filter);   
@@ -19,6 +17,7 @@ export async function all(req: Request, res: Response) {
         const pokemons:Array<Pokemon> =  snapshot.docs.map((item:FirebaseFirestore.QueryDocumentSnapshot)=>Pokemon.fromFirebaseDocument(item));
 		if(!filter.type)
 			filter.type=[];
+		filter.page += 1 ;
 		return res.status(200).send({pokemons,filter})
        
 	} catch (err) {
@@ -26,28 +25,25 @@ export async function all(req: Request, res: Response) {
 	}
 }
 
-
 async function getSnapshotReference(filter:Filter): Promise<FirebaseFirestore.QuerySnapshot<FirebaseFirestore.DocumentData>>{
     
     let query:FirebaseFirestore.Query = admin.firestore().collection(COLLECTION_POKEMON);
     
     if(filter.type)
-        query = query.where("type", "array-contains-any", filter.type);
+		query = query.where("type", "array-contains-any", filter.type);
+	
+	if(filter.name && filter.name.text)
+		query = query.where(`name.${filter.name.language}`, '>=', filter.name.text);
 
-    // let prueba;
-    // if(filter.defense)
-    //     prueba = await getQueryBaseObj(filter.defense,"Defense");
+	const nameLang = filter.name ? filter.name?.language : "english";
+	query = query.orderBy(`name.${nameLang}`);
 
-    // console.log(prueba);
-
-    // let prueba2;
-    // if(filter.attack)
-    //     prueba2 = await getQueryBaseObj(filter.attack,"Attack");
-
-    // const uniqueArray = jointArray.filter((item,index) => jointArray.indexOf(item) === index)
-    const startAt =  filter.page !== 0 ? (filter.page * filter.amountPerPage )+1 : filter.page;
-
-    return query.orderBy("name.english").startAt(startAt).limit(filter.amountPerPage).get();    
+	if(filter.amountPerPage !== -1){
+		const startAt =  filter.page !== 0 ? (filter.page * filter.amountPerPage ) : filter.page;
+		query = query.startAt(startAt).limit(filter.amountPerPage);
+	}	 
+    
+    return query.get();    
 }
 
 // async function getQueryBaseObj(type:Between,str:string):Promise<any>{

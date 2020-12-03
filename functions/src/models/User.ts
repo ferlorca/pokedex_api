@@ -1,21 +1,18 @@
-import { Pokemon } from "./Pokemon";
-
-
 export class User{
-    name: string;
     email: string;
     role: string;
     maxPokemon: number = 5;
-    pokemons:Array<Pokemon>;
 
-    constructor(name:string,email:string,role:string) {
-        this.name= name;
+    constructor(email:string,role:string) {
         this.email=email;
-        this.role=role;  
-        this.pokemons=[];     
+        this.role=role;          
     }
 
-    addPokemon(newPokemon: Pokemon) {
-        this.pokemons.push(newPokemon);
+    public toJson(): any {
+        return {
+            email: this.email,
+            role: this.role,
+            maxPokemon: this.maxPokemon,
+        }
     }
 }
