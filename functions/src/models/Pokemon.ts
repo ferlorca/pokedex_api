@@ -84,12 +84,12 @@ export class Base {
         const id = data.id;
         const base =  data.data();        
         return new this(id,     
-            base.attack,
-            base.defense,
-            base.hp,
-            base.spAttack,
-            base.spDefense,
-            base.speed);
+            base.Attack,
+            base.Defense,
+            base.HP,
+            base["Sp. Attack"],
+            base["Sp. Defense"],
+            base.Speed);
     }
 }
 

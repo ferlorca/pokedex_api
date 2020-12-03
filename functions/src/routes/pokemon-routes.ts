@@ -17,7 +17,7 @@ export default function routesConfig(app: Application) {
     app.post('/pokemon/get',
         [
             isAuthenticated,
-            isAuthorized({ hasRole: ['admin', 'user'], allowSameUser: true }),
+            isAuthorized({ hasRole: ['admin', 'user']}),
             get,
         ]
     );

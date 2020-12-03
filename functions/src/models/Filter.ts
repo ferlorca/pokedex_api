@@ -33,7 +33,7 @@ export class Filter {
     static fromData(data: any): Filter {
         const page = data.page ? data.page - 1 :  0;
         const amountPerPage = data.amountPerPage ?? 100;
-        const type = data.type && data.type.length>0 ?data.type :  undefined;
+        const type = data.type && data.type.length>0 ?data.type : undefined;
         const attack = Filter.isCorrectValue(data.attack) ? new Between(data.attack.min, data.attack.max) : undefined;
         const defense = Filter.isCorrectValue(data.defense) ? new Between(data.defense.min, data.defense.max): undefined;
         const hp = Filter.isCorrectValue(data.hp) ? new Between(data.hp.min, data.hp.max): undefined;

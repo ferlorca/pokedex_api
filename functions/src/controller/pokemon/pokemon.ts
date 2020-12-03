@@ -15,9 +15,11 @@ export async function all(req: Request, res: Response) {
 	try {        
         const filter = Filter.fromData(req.body.filter);   
         const snapshot = await getSnapshotReference(filter);
-        const totalpages = Math.ceil(snapshot.size/filter.amountPerPage);  
+        // const totalpages = Math.ceil(snapshot.size/filter.amountPerPage);  
         const pokemons:Array<Pokemon> =  snapshot.docs.map((item:FirebaseFirestore.QueryDocumentSnapshot)=>Pokemon.fromFirebaseDocument(item));
-        return res.status(200).send({pokemons,page:filter.page +1 ,totalpages})
+		if(!filter.type)
+			filter.type=[];
+		return res.status(200).send({pokemons,filter})
        
 	} catch (err) {
 		return handleError(res, err)
@@ -85,7 +87,7 @@ export async function types(req: Request, res: Response) {
 
 export async function get(req: Request, res: Response) {
 	try {
-		const { id } = req.params;
+		const { id } = req.body;
 		const doc = await admin.firestore().collection(COLLECTION_POKEMON).doc(id).get();
 		let pokemon:Pokemon;
 		if (doc.exists) {

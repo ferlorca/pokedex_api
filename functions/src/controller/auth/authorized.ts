@@ -14,7 +14,7 @@ export function isAuthorized(opts: { hasRole: Array<'admin' | 'user'>, allowSame
        if (!role)
            return res.status(403).send();
 
-       if (opts.hasRole.includes(role))
+       if (opts.hasRole.includes(role[0]))
            return next();
 
        return res.status(403).send();
