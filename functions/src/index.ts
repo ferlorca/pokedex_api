@@ -1,4 +1,4 @@
-// import * as functions from 'firebase-functions';
+import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
 import * as express from 'express';
 import * as cors from 'cors';
@@ -16,8 +16,8 @@ app.use(bodyParser.json());
 app.use(cors({ origin: true }));
 routesConfig(app);
 
-app.listen(3001,()=>{
-    console.log("server is running on port 3001")
-})
+// app.listen(3001,()=>{
+//     console.log("server is running on port 3001")
+// })
 
-// export const api = functions.https.onRequest(app);
+export const api = functions.https.onRequest(app);
