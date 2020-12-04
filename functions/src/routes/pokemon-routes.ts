@@ -5,12 +5,11 @@ import { isAuthorized } from "../controller/auth/authorized";
 
 export default function routesConfig(app: Application) {
     app.post('/pokemon/all', [
-        //isAuthenticated,
+        isAuthenticated,
         all,
     ]
     );  
     app.post('/pokemon/types', [
-        //isAuthenticated,
         types,
     ]
     ); 
