@@ -7,7 +7,6 @@ export default function routesConfig(app: Application) {
     app.post('/pokedex/all',
         [
             isAuthenticated,
-            isAuthorized({ hasRole: ['admin', 'user'] }),
             all,
         ]
     );
@@ -28,7 +27,6 @@ export default function routesConfig(app: Application) {
     app.post('/pokedex/getUser',
         [
             isAuthenticated,
-            isAuthorized({ hasRole: ['admin', 'user'] }),
             getUser,
         ]
     );

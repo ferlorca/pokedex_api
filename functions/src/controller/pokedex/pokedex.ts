@@ -36,7 +36,7 @@ export async function all(req: Request, res: Response) {
 export async function getUser(req: Request, res: Response) {
 	try {        
         const {email,role} = res.locals;
-        const user = new User(email,role[0]);
+        const user = new User(email,role? role[0] :  "user");
 		return res.status(200).send(user.toJson())
        
 	} catch (err) {
